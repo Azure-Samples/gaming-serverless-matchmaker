@@ -15,6 +15,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 
 namespace RedisMatchmaker
 {

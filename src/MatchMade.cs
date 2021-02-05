@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.EventHubs;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -14,7 +15,7 @@ namespace RedisMatchmaker
     {
         [FunctionName("MatchMade")]
         public static async Task Run([EventHubTrigger(Constants.EventHubSessionReady, Connection = "EVENTHUB_CONNECTION_STRING")] EventData[] events,
-            [OrchestrationClient]DurableOrchestrationClient starter,
+            [DurableClient] IDurableOrchestrationClient starter,
             ILogger log)
         {
             var exceptions = new List<Exception>();

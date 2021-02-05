@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
@@ -19,7 +20,7 @@ namespace RedisMatchmaker
     {
         [FunctionName("MatchRequest")]
         public static async Task<object> RunOrchestrator(
-            [OrchestrationTrigger] DurableOrchestrationContext context,
+            [OrchestrationTrigger] IDurableOrchestrationContext context,
             ILogger log) // TODO: change object to some sort of actually defined match status obj
         {
             log.LogInformation($"MatchRequest sends to the player GUID {context.InstanceId} the IP:Port to connect to or the timed out message. It also removes the player from the database for future matchmakings");

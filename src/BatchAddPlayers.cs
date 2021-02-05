@@ -1,5 +1,6 @@
 using Microsoft.Azure.EventHubs;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StackExchange.Redis;
@@ -15,7 +16,7 @@ namespace RedisMatchmaker
     {
         [FunctionName("BatchAddPlayers")]
         public static async Task Run([EventHubTrigger(Constants.EventHubAddPlayers, Connection = "EVENTHUB_CONNECTION_STRING")] EventData[] events,
-            [OrchestrationClient]DurableOrchestrationClient starter,
+            [DurableClient] IDurableOrchestrationClient starter,
             ILogger log)
         {
             var exceptions = new List<Exception>();
